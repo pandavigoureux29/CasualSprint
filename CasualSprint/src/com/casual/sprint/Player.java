@@ -18,7 +18,7 @@ import com.ladybug.engine.components.Rigidbody;
 public class Player extends GameObject {
 	public static Player instance;
 	
-	Platform m_collPlatf;
+	Collider m_collPlatf;
 	Vector2 m_dirCollPlatf;
 	
 	float jumpForce = 3;
@@ -45,12 +45,16 @@ public class Player extends GameObject {
 			m_jumping = true;
 		}else{
 			//try wall jump
-			if(m_collPlatf != null){
-				m_speed *= -1;
-				rigidbody.setVelocity(m_speed,0);
-				rigidbody.setAcceleration(-jumpForce);
-				m_jumping = true;
-			}
+			wallJump();
+		}
+	}
+	
+	void wallJump(){
+		if(m_collPlatf != null){
+			m_speed *= -1;
+			rigidbody.setVelocity(m_speed,0);
+			rigidbody.setAcceleration(-jumpForce);
+			m_jumping = true;
 		}
 	}
 	
@@ -81,13 +85,7 @@ public class Player extends GameObject {
 		//translate camera
 		Global.mainCamera.translate(new Vector3(getDeltaDir().x,getDeltaDir().y,0));
 	}
-	
-	
-	public void setCollider(Platform p, Vector2 dirColl){	
-		m_collPlatf = p;
-		m_dirCollPlatf = dirColl;
-	}
-	
+		
 	@Override
 	public void die(){
 		Global.currentScene.reset();
@@ -98,5 +96,13 @@ public class Player extends GameObject {
 	//=====================================
 	@Override
 	public void OnCollisionEnter(Collider objCollider){
+		if(objCollider.LAYER == LayerManager.GROUND)
+			m_collPlatf = objCollider;
+	}
+	
+	@Override 
+	public void OnCollisionExit(Collider objCollider){
+		if(objCollider.equals(m_collPlatf))
+			m_collPlatf = null;
 	}
 }

@@ -33,8 +33,6 @@ public class Sprint extends Game2D {
 		m_level = new Level();
 		scene.addObject(m_level);
 		addScene(scene);
-//		scene.load();
-//		scene.init();
 	}
 	
 	//this sets the collisions in the array. It is called automatically 

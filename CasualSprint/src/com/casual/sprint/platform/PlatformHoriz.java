@@ -26,16 +26,4 @@ public class PlatformHoriz extends Platform {
 							getY());
 	}
 	
-	@Override
-	public void OnCollisionEnter(Collider objCollider){
-		//System.out.println("collisionEnter " + objCollider.getObject());
-		if(objCollider.LAYER != LayerManager.PLAYER)
-			return;
-		//case  it's ground
-		if(this.collider.top() <= objCollider.bottom())
-			objCollider.getObject().rigidbody.m_onGround = true;
-		objCollider.getObject().replaceToOldY();
-		objCollider.getObject().rigidbody.setAcceleration(0);
-	}
-	
 }
