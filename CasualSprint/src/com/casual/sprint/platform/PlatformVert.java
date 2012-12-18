@@ -1,6 +1,7 @@
 package com.casual.sprint.platform;
 
 import com.ladybug.engine.game.LayerManager;
+import com.ladybug.engine.gameobject.Renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,15 +14,15 @@ import com.ladybug.engine.components.BoxCollider;
 public class PlatformVert extends Platform{
 	boolean m_didCollide = false;
 	
-	public PlatformVert() {
-		m_textureName = "data/Images/platformV.png";
-		addComponent(new BoxCollider(new Rectangle(0,0,32,64)));
-		collider.LAYER = LayerManager.GROUND;
+	public void start() {
+		getObject().addComponent( new Renderer( "data/Images/platformV.png"));
+		getObject().addComponent(new BoxCollider(new Rectangle(0,0,32,64)));
+		getCollider().LAYER = LayerManager.GROUND;
 	}
 	
-	@Override
+	/*@Override
 	public void update(){
-		/*if(collider.collide(Player.instance.collider)){
+		if(collider.collide(Player.instance.collider)){
 			Vector2 pos =  Player.instance.getPosition();
 			
 			Player.instance.replaceToOldX();
@@ -39,12 +40,12 @@ public class PlatformVert extends Platform{
 		}else if(m_didCollide){
 			Player.instance.setCollider(null,null);
 			m_didCollide = false;
-		}*/
-	}
+		}
+	}*/
 	
 	@Override
 	public void setSize(float s){
-		setScale(getScaleX(), s);
+		getObject().setScale(getObject().getScaleX(), s);
 	}
 	
 }

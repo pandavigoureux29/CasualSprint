@@ -2,6 +2,7 @@ package com.casual.sprint.enemies;
 
 
 import com.ladybug.engine.gameobject.GameObject;
+import com.ladybug.engine.gameobject.Renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,13 +14,13 @@ public class Enemy extends GameObject{
 	
 	public Enemy(float x,float y){
 		super(x,y);
-		m_textureName = "data/Images/enemy.png";
+		addComponent( new Renderer( "data/Images/enemy.png") );
 		addComponent(new BoxCollider(32,32));
 	}
 	
-	@Override
+	/*@Override
 	public void update(){
 		//if(Player.instance.collider.collide(collider))
 		//	Player.instance.die();
-	}
+	}*/
 }

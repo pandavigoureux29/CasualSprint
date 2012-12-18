@@ -1,6 +1,7 @@
 package com.casual.sprint.platform;
 
 import com.ladybug.engine.game.LayerManager;
+import com.ladybug.engine.gameobject.Renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,17 +14,12 @@ import com.ladybug.engine.components.Collider;
 
 public class PlatformHoriz extends Platform {
 
-	public PlatformHoriz(){
-		this.m_textureName = "data/Images/platformH.png";
-		addComponent(new BoxCollider(new Rectangle(0,0,64,32)));
-		collider.LAYER = LayerManager.GROUND;
-	}
-	
-		
-	@Override 
-	public Vector2 getEndPosition(){
-		return new Vector2( getBoundingRectangle().x + getBoundingRectangle().width,
-							getY());
+	@Override
+	public void start(){
+		getObject().addComponent( new Renderer( "data/Images/platformH.png") );
+
+		getObject().addComponent(new BoxCollider(new Rectangle(0,0,64,32)));
+		getCollider().LAYER = LayerManager.GROUND;
 	}
 	
 }

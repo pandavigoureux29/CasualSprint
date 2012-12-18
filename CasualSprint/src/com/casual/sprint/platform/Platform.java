@@ -2,12 +2,13 @@ package com.casual.sprint.platform;
 
 
 import com.ladybug.engine.components.Collider;
+import com.ladybug.engine.components.Script;
 import com.ladybug.engine.game.LayerManager;
 import com.ladybug.engine.gameobject.GameObject;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Platform extends GameObject {
+public class Platform extends Script {
 	
 	Platform(){
 	}
@@ -17,19 +18,19 @@ public class Platform extends GameObject {
 	public Vector2 getEndPosition(){return new Vector2();}
 	
 	@Override
-	public void OnCollisionEnter(Collider objCollider){
+	public void onCollisionEnter(Collider objCollider){
 		//System.out.println("collisionEnter " + objCollider.getObject());
 		if(objCollider.LAYER != LayerManager.PLAYER)
 			return;
 		//case  it's ground
-		if(this.collider.top() <= objCollider.bottom()){
+		if(getCollider().top() <= objCollider.bottom()){
 			objCollider.getObject().rigidbody.m_onGround = true;
-			objCollider.getObject().replaceToOldY();
-			objCollider.getObject().rigidbody.setAcceleration(0);
+			objCollider.getObject().replaceToOldPositionY();
+			//objCollider.getObject().rigidbody.setAcceleration(0);
 		}
 		
-		if(this.collider.right() <= objCollider.left() || this.collider.left() >= objCollider.right()){
-			objCollider.getObject().replaceToOldX();
+		if(getCollider().right() <= objCollider.left() || getCollider().left() >= objCollider.right()){
+			objCollider.getObject().replaceToOldPositionX();
 		}
 	}
 	
